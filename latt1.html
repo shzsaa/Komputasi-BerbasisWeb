@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Layout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .image {
+            width: 1000px;
+            height: 250px;
+            background-color: none;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .links {
+            list-style-type: none;
+            padding: 0;
+        }
+        .links li {
+            display: inline;
+            margin-right: 10px;
+        }
+        .news-item{
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .news-item img{
+            width: 150px;
+            height: 200px;
+            margin-right: 20px;
+        }
+        .news-details {
+            max-width: 600px;
+        }
+        .news-item{
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .news-item img{
+            width: 200px;
+            height: 500;
+            margin-right: 20px;
+        }
+        .news-details {
+            max-width: 600px;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #333;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: flex;
+            bottom: 0;
+            width: 100%;
+        }
+        footer ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        footer ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="http://127.0.0.1:5500/.vscode/latt1.html">Home</a></li>
+                <li><a href="#footer">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="home">
+            <h2>Home</h2>
+            <div class="image"> <img src="https://i.pinimg.com/564x/f1/fc/d7/f1fcd79c3b86b169a0fd87259139d969.jpg" alt="homeflow" width="1040" height="250"></div>
+            <div class="content"> <hr> 
+                <h2>Berita</h2> 
+                <div class="news-item">
+                    <img src="https://th.bing.com/th/id/OIP.OWCLiFiqJM2mXDeyW_oNPAHaFj?rs=1&pid=ImgDetMain" alt="thumbnail 1" width="100" height="200">
+                    <div class="news-details">
+                        <h3>Spider-Man: Home Coming</h3>
+                        <p> <b>Director</b>: Jon Watts <br>
+                           <b> Writer</b>: Jonathan Goldstein, John Francis Daley, Jon Watts <br>
+                           <b> Stars</b>: Tom Holland, Michael Keaton, Robert Downey Jr.<br>
+                            <b>Genre</b>: Action, Adventure, Sci-Fi<br>
+                            <b>Release Date</b>: 2017-07-07<br><br>
+                            Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City</p>
+                        <a href="http://127.0.0.1:5500/.vscode/Berita1.html">Selengkapnya</a>
+                    </div>
+                </div><br> <br>
+                
+                <div class="news-item">
+                    <img src="https://th.bing.com/th/id/OIP.fWJ3m7Yx_IYsjJOAfuKHUAAAAA?rs=1&pid=ImgDetMain" alt="thumbnail 2">
+                    <div class="news-details">
+                        <h3>Venom: Let There Be Carnage</h3>
+                        <p><b>“Venom: Let There Be Carnage”</b> is many things: a blockbuster comic-book sequel, a mismatched-buddy comedy, an opportunity for some gloriously self-aware overacting. </p>
+                        <a href="http://127.0.0.1:5500/.vscode/Berita2.html">Selengkapnya</a>
+                  </div> 
+                 </div>
+                </div>
+            </div>
+         <br>
+        </section>
+
+        
+
+        <footer id="footer">
+            <p>&copy; 2024 Author: Teesa Shahnaz Triviraquetta</p>
+            <ul>
+                <li><a href="https://www.google.com">Google</a></li> 
+                <li><a href="https://www.instagram.com/sh_.ahnaz/">Instagram</a></li>
+                <li><a href="https://upj.ac.id/">Campus</a></li>
+            </ul>
+        </footer>
+    </div>
+
+</body>
+</html>
