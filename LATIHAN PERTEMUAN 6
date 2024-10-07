@@ -1,0 +1,212 @@
+-----------------------------------------------------------------------------------DATA BASED.PHP---------------------------------------------------------------------------------------------
+<?php 
+
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$database_name = "data2_kbw";
+
+$db = mysqli_connect($hostname, $username, $password, $database_name);
+
+if($db->connect_error) {
+    echo"koneksi rusak";
+    die("error!");
+}
+
+
+?>
+
+--------------------------------------------------------------------------------------CONFIRM.PHP-----------------------------------------------------------------------------------------
+
+<?php
+
+    include "service/databased.php";
+
+    
+
+    session_start();
+// Periksa apakah data ada di sesi
+if (isset($_SESSION['nama'])) {
+    $nama = $_SESSION['nama'];
+    $email = $_SESSION['email'];
+    $gender = $_SESSION['gender'];
+    $birthdate = $_SESSION['birthdate']; // Menyimpan tanggal lahir
+    $age = $_SESSION['age']; // Menyimpan umur
+    
+    $sql = "INSERT INTO pengguna (nama, email, gender, birthdate, age) VALUES
+    ('$nama', '$email', '$gender', '$birthdate', '$age')";
+
+    if (mysqli_query($db, $sql)) {
+        echo "Data berhasil disimpan!";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($db);
+    }
+  
+    // Hapus data dari sesi setelah digunakan
+    session_unset();
+    session_destroy();
+} else {
+    echo "<p>Data tidak ditemukan.</p>";
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data yang Dikirim</h1>
+    <p>Nama: <?php echo $nama; ?></p>
+    <p>Email: <?php echo $email; ?></p>
+    <p>Jenis Kelamin: <?php echo $gender; ?></p>
+    <p>Tanggal Lahir: <?php echo date('d-m-Y', strtotime($birthdate)); ?></p> <!-- Menampilkan tanggal lahir -->
+    <p>Umur: <?php echo $age; ?> tahun</p> <!-- Menampilkan umur -->
+</body>
+</html>
+
+---------------------------------------------------------------------------------------PROCESS.PHP---------------------------------------------------------------------------------------------
+
+<?php
+    
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = htmlspecialchars($_POST['fname']);
+    $email = htmlspecialchars($_POST['email']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $birthdate = htmlspecialchars($_POST['birthdate']); // Menyimpan tanggal lahir
+
+
+    // Menghitung umur
+    $birthYear = date('Y', strtotime($birthdate));
+    $currentYear = date('Y');
+    $age = $currentYear - $birthYear;
+
+    // Simpan data dalam sesi untuk digunakan di konfirmasi.php
+    session_start();
+    $_SESSION['nama'] = $nama;
+    $_SESSION['email'] = $email;
+    $_SESSION['gender'] = $gender;
+    $_SESSION['birthdate'] = $birthdate; // Menyimpan tanggal lahir
+    $_SESSION['age'] = $age; // Menyimpan umur
+
+    // Arahkan ke halaman konfirmasi
+    header("Location: confirm.php");
+    exit();
+} else {
+    echo "<p>Metode pengiriman tidak valid.</p>";
+}
+?>
+
+-------------------------------------------------------------------------------------------INDEX.HTML------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Kami</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgb(211, 211, 211);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #a585d9;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            color: #fff;
+            background-color: #007BFF;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button[type="reset"] {
+            background-color: #6c757d;
+        }
+        button:hover {
+            background-color: #267fde;
+        }
+        button[type="reset"]:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kontak Kami</h1>
+
+        <h3>Masukan:</h3>
+
+        <form action="process_form.php" method="POST">
+            <label for="fname">Nama:</label>
+            <input type="text" id="fname" name="fname" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label>Gender:</label>
+            <label>
+                <input type="radio" id="pria" name="gender" value="Pria" required>
+                Pria
+            </label>
+            <label>
+                <input type="radio" id="wanita" name="gender" value="Wanita" required>
+                Wanita
+            </label>
+
+            <label for="birthdate">Tanggal Lahir:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <button type="submit">SUBMIT</button>
+            <button type="reset">RESET</button>
+        </form>
+    </div>
+</body>
+</html>
